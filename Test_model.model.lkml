@@ -157,47 +157,6 @@ explore: last_synced {
   }
 }
 
-explore: finance_cohort {
-  view_name: order_cohort_extension
-  view_label: "(1) Order"
-  join: customer {
-    view_label: "(2) Customer"
-    type:  inner
-    foreign_key: customer_pubkey
-    relationship: many_to_one
-    #sql_on: ${order_cohort_extension.customer_pubkey} = ${customer.customer_pubkey};;
-  }
-  join: cohort_finance_name {
-    type:  cross
-    #foreign_key: customer_pubkey
-    relationship: many_to_many
-  }
-  }
-# This explore is used for single look that produces sql for cohort_finance_units_by_month PDT definition
-
-# Look's name "Look for producing sql for cohort_finance_units_by_month_derived table"
-  explore: finance_cohort_products {
-    view_name: order_items_cohort_extension
-    view_label: "(1) Order"
-    join: customer {
-      view_label: "(2) Customer"
-      type:  inner
-      foreign_key: customer_pubkey
-      relationship: many_to_one
-      #sql_on: ${order_items_cohort_extension.customer_pubkey} = ${customer.customer_pubkey};;
-    }
-    join: cohort_finance_name {
-      type:  cross
-      #foreign_key: customer_pubkey
-      relationship: many_to_many
-    }
-    join: drv_launch_date_by_product {
-      type: left_outer
-      relationship: many_to_one
-      sql_on: ${order_items_cohort_extension.product_name}= ${drv_launch_date_by_product.product_name};;
-    }
-
-  }
 
 explore: drv_pdt_daily_flash  {}
 
