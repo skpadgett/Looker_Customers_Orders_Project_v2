@@ -1,0 +1,26 @@
+version: 2.1
+
+executors:
+  docker-python:
+    docker:
+      - image: circleci/python:3.8.10
+
+jobs:
+  build_and_test:
+    executor: docker-python
+    steps:
+      - checkout
+      - run:
+          name: Installing dependencies
+          command: make init-dev
+      - run:
+          name: Running Looker project validation
+          command: make validate
+      - run:
+          name: Running Looker data tests
+          command: make test
+
+workflows:
+  build:
+    jobs:
+      - build_and_test
